@@ -57,8 +57,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menù Screens:</h6>
 			<a class="collapse-item" href="index.html">Home</a>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
+            <a id="logged" class="collapse-item" href="login.html">Login</a>
+            
           </div>
         </div>
       </li>
@@ -66,37 +66,18 @@
       
       <!-- Ordini del giorno - Tables -->
      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#odd" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="odg.html" data-target="#odd" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>&nbsp;Ordini del giorno
           <span>&nbsp;</span>
         </a>
-        <div id="odd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Anni:</h6>
-            <a class="collapse-item" href="ods.html?2020">2020</a>
-            <a class="collapse-item" href="ods.html?2019">2019</a>
-            <a class="collapse-item" href="ods.html?2018">2018</a>
-          </div>
-        </div>
       </li>
 	  <!-- Ordini di servizio- Tables -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ods" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="ods.html"  data-target="#ods" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>&nbsp;Ordini di servizio
           <span>&nbsp;</span>
         </a>
-        <div id="ods" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Anni:</h6>
-            <a class="collapse-item" href="odg.html?2020">2020</a>
-            <a class="collapse-item" href="odg.html?2019">2019</a>
-            <a class="collapse-item" href="odg.html?2018">2018</a>
-            
-          </div>
-        </div>
       </li>
-
-
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -125,29 +106,29 @@
           <!-- Topbar Search -->
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto" id="loginBar">
-
+			<li class="nav-item dropdown no-arrow">
+				<i><h6>Utenti Loggati</h6><span class="badge badge-danger badge-counter" id="loggedCount">0</span></i>
+			</li>
             <div class="topbar-divider d-none d-sm-block"></div>
-
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow"  >
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown no-arrow" id="login" style="display: none" >
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                 <img class="img-profile rounded-circle" src="https://images.unsplash.com/photo-1429497587953-2e68f09d4283?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=60">
               </a>
               <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown" >
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Scrivi nuovo ordine
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item"  href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
               </div>
             </li>
-
           </ul>
 
         </nav>
@@ -218,7 +199,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" onClick="logout()" href="index.html">Logout</a>
         </div>
       </div>
     </div>
@@ -239,9 +220,11 @@
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/loginBar.js"></script>
-
+	  <script src="js/demo/datatables-demo.js"></script>
+  		
+	  <script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+	  
+	  <script src="js/loginBar.js"></script>
 </body>
 
 </html>
