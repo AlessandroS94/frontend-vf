@@ -1,11 +1,16 @@
 // javascript for loginBar
 
+//javascript show log bar
 function start()
 {
-	var x = Cookies.get('auth');
-	if (x == 'yes'){
+	let x = window.localStorage.getItem('code');
+	if (x){
 	$("#login").show("#login");
 	$('#logged').hide('#logged');
+	}
+	else{
+		$("#login").hide("#login");
+		$('#logged').show('#logged');
 	}
 }
 start();
@@ -17,32 +22,60 @@ function counter(){
              contentType: "application/json",
              url: "http://localhost:8080/Bacheca/api/auth/count",
              success: function(dati){
-				$("#loggedCount").append(dati);
+				$("#loggedCount").text(dati);
              }
          });
 }
 
 counter();
 
-
 // javascript for logout
-// must fix 
 function logout(){
-	let tokenId = Cookies.get('code');
-	$.ajax({ 
+	let tokenId = window.localStorage.getItem('code');
+	
+	$.ajax({
              type: "POST",
-             contentType: "application/json",
-			 Authorization: tokenId,
-             url: "http://localhost:8080/Bacheca/api/auth/logout",
+		     headers :{
+				 "Authorization": 'Bearer '+tokenId
+			 },
+		     url: "http://localhost:8080/Bacheca/api/auth/logout",
              success: function(dati){
-			    //window.location = "index.html";
+				
+				 window.localStorage.removeItem('code');
+				 location.reload();
              },
 			error: function(){
-				
+				 console.log('it can not logout');
 			}
-		
+
          });
-	Cookies.remove('auth');
-	Cookies.remove('code');
 }
+
+//javascript per yaer
+
+function getYear(){
+	$.ajax({
+             type: "GET",
+			 contentType: "application/json",
+		     url: "http://localhost:8080/Bacheca/api/board/DDS/years",
+             success: function(dati){
+			 for(let i=0; i<dati.length; i++ ){
+				 x = '<a class="collapse-item" href="dds.html?year='+dati[i]+'">'+dati[i]+'</a>'
+				 $('#ancDds').append($(x));
+			 }
+			 }
+         });
+	$.ajax({
+             type: "GET",
+			 contentType: "application/json",
+		     url: "http://localhost:8080/Bacheca/api/board/ODG/years",
+             success: function(dati){
+			 for(let i=0; i<dati.length; i++ ){
+				 x = '<a class="collapse-item" href="odg.html?year='+dati[i]+'">'+dati[i]+'</a>'
+				 $('#ancOdg').append($(x));
+			 }
+			 }
+         });
+}
+getYear();
 

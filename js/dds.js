@@ -1,6 +1,6 @@
-// javascript for ODG 
+// javascript for DDS
 
-function getODG() {
+function getDDS() {
  let searchParams = new URLSearchParams(window.location.search);
  let year = searchParams.get('year');
  let filter = searchParams.get('q');
@@ -10,12 +10,11 @@ function getODG() {
  else{
 	 filter = "";
  }
-	console.log(year);
  if (year)
 	$.ajax({ 
              type: "GET",
              contentType: "application/json",
-             url: "http://localhost:8080/Bacheca/api/board/"+year+"/ODG"+filter,
+             url: "http://localhost:8080/Bacheca/api/board/"+year+"/DDS"+filter,
              success: function(dati){
 				var x = window.localStorage.getItem('code');
 				if (x) //if logged
@@ -23,8 +22,8 @@ function getODG() {
 					  for(let i = dati.length-1; i >=0; i--)
 				  		{
 					 	x = '<tr><td>' + dati[i].id + '</td><td>' + dati[i].dataPubblicazione + '</td><td>' + dati[i].titolo + '</td>';
-					 	x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/'+year+'ODG/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\''+year+'/ODG/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
-					 	x += '<td><a onclick="deleteOdgYear('+dati[i].id+','+year+')" href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td></tr>';
+					 	x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/'+year+'DDS/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\''+year+'/DDS/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
+					 	x += '<td><a onclick="deleteDdsYear('+dati[i].id+','+year+')" href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td></tr>';
 					 	$('#gData').append($(x));
 				  		} 
 				  }
@@ -33,7 +32,7 @@ function getODG() {
 						for(let i = dati.length-1; i >=0; i--)
 				  			{
 					 		x = '<tr><td>' + dati[i].id + '</td><td>' + dati[i].dataPubblicazione + '</td><td>' + dati[i].titolo + '</td>';
-					 	x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/'+year+'ODG/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\''+year+'/ODG/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
+					 	x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/'+year+'DDS/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\''+year+'/DDS/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
 					 		$('#gData').append($(x));
 				  			} 
 					 }
@@ -43,7 +42,7 @@ function getODG() {
 		$.ajax({ 
              type: "GET",
              contentType: "application/json",
-             url: "http://localhost:8080/Bacheca/api/board/ODG"+filter,
+             url: "http://localhost:8080/Bacheca/api/board/DDS"+filter,
              success: function(dati){
 				var x = window.localStorage.getItem('code');
 				if (x)//if logged
@@ -51,8 +50,8 @@ function getODG() {
 					  for(let i = dati.length-1; i >=0; i--)
 				  		{
 					 	x = '<tr><td>' + dati[i].id + '</td><td>' + dati[i].dataPubblicazione + '</td><td>' + dati[i].titolo + '</td>';
-					 	x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/ODG/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\'ODG/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
-					 	x += '<td><a onclick="deleteOdg('+dati[i].id+')" href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td></tr>';
+					 	x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/DDS/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\'DDS/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
+					 	x += '<td><a onclick="deleteDds('+dati[i].id+')" href="#" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td></tr>';
 					 	$('#gData').append($(x));
 				  		} 
 				  }
@@ -61,7 +60,7 @@ function getODG() {
 						for(let i = dati.length-1; i >=0; i--)
 				  			{
 					 		x = '<tr><td>' + dati[i].id + '</td><td>' + dati[i].dataPubblicazione + '</td><td>' + dati[i].titolo + '</td>';
-					 		x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/ODG/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\'ODG/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
+					 		x += '<td>' + dati[i].ufficio+ '</td><td><a class="btn btn-success btn-circle btn-sm" href="http://localhost:8080/Bacheca/api/board/DDS/'+dati[i].id+'/stream"><i class="fas fa-download"></i></a></td><td>' + dati[i].proprietario + '</td><td><a class="btn btn-success btn-circle btn-sm" href=# onclick="startModal(\'DDS/'+dati[i].id+'/attachments\')"><i class="fas fa-plus"></i></a></td>';
 					 		$('#gData').append($(x));
 				  			} 
 					 }
@@ -71,10 +70,10 @@ function getODG() {
 
 }
 
-getODG();
+getDDS();
 
-//Delete a row ODG
-function deleteOdg(id){
+//Delete a row DDS
+function deleteDds(id){
 	let tokenId = window.localStorage.getItem('code');
 	$.ajax({ 
              type: "DELETE",
@@ -82,14 +81,14 @@ function deleteOdg(id){
 			 headers :{
 				 "Authorization": 'Bearer '+tokenId
 			 },
-             url: "http://localhost:8080/Bacheca/api/board/ODG/"+id,
+             url: "http://localhost:8080/Bacheca/api/board/DDS/"+id,
              success: function(dati){
 				location.reload();
              }
          });
 }
-//Delete a row ODG per anno
-function deleteOdgYear(id, year){
+//Delete a row DDS per anno
+function deleteDdsYear(id, year){
 	let tokenId = window.localStorage.getItem('code');
 	$.ajax({ 
              type: "DELETE",
@@ -97,7 +96,7 @@ function deleteOdgYear(id, year){
 			 headers :{
 				 "Authorization": 'Bearer '+tokenId
 			 },
-             url: "http://localhost:8080/Bacheca/api/board/"+year+"/ODG/"+id,
+             url: "http://localhost:8080/Bacheca/api/board/"+year+"/DDS/"+id,
              success: function(dati){
 				location.reload();
              }
@@ -129,9 +128,9 @@ function search(){
 	let searchParams = new URLSearchParams(window.location.search);
 	let year = searchParams.get('year');
 	if (year)
-		window.location.replace('odg.html?year='+year+'&q='+$('#filtro').val());
+		window.location.replace('dds.html?year='+year+'&q='+$('#filtro').val());
 	else
-		window.location.replace('odg.html?q='+$('#filtro').val());
+		window.location.replace('dds.html?q='+$('#filtro').val());
 }
 
 
